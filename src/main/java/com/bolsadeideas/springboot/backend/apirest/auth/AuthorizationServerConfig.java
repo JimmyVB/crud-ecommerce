@@ -63,6 +63,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public JwtAccessTokenConverter accessTokenConverter() {
         //Trabaja con toda la implementacion del token JWT para traducir la informacion / decodifica y codificar los datos
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey(JwtConfig.LLAVE_SECRETA); // Se crea el token en el servidor de authorizacion
+                                                                    // cuando el cliente llega con el token autenticado
+                                                                    // lo envia al servidor de recurso y ahi se valida si es authentica
         return jwtAccessTokenConverter;
     }
 }
