@@ -11,8 +11,12 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableAuthorizationServer //Se habilita esta configuracion
@@ -24,6 +28,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     @Qualifier("authenticationManager")
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private InfoAdicionalToken infoAdicionalToken;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -46,12 +53,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         //Se encarga de t0do el proceso de autenticacion y validar y genera token y entregar al usuario el token
+
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(infoAdicionalToken, accessTokenConverter()));
+
         endpoints.authenticationManager(authenticationManager)
                 .tokenStore(tokenStore())
-                .accessTokenConverter(accessTokenConverter()); // Componente encargado de manejar el token,
+                .accessTokenConverter(accessTokenConverter()) // Componente encargado de manejar el token,
                                                                 // almacena datos de autenticacion
                                                                 // (user, role) que serian los claims.
                                                                 // Convierte o traduce los datos del token
+                .tokenEnhancer(tokenEnhancerChain); //Asignar el token
     }
 
     @Bean
