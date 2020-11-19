@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "clientes")
@@ -43,6 +45,13 @@ public class Cliente implements Serializable {
     @JoinColumn(name="region_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Region region;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)// cascade = si elimina un cliente, elimina tod0 los hijos
+    private List<Factura> facturas;
+
+    public Cliente() {
+        this.facturas = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
@@ -98,6 +107,14 @@ public class Cliente implements Serializable {
 
     public void setRegion(Region region) {
         this.region = region;
+    }
+
+    public List<Factura> getFacturas() {
+        return facturas;
+    }
+
+    public void setFacturas(List<Factura> facturas) {
+        this.facturas = facturas;
     }
 
     private static final long serialVersionUID = 2189314171408493743L;
