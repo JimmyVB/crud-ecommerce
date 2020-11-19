@@ -1,5 +1,7 @@
 package com.bolsadeideas.springboot.backend.apirest.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ import java.util.List;
 @Table(name = "facturas")
 public class Factura implements Serializable {
 
-    private static final long serialVersionUID = -2266822589710890509L;
+    private static final long serialVersionUID = 2189314171408493743L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +24,7 @@ public class Factura implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date createAt;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="factura_id")
     private List<ItemFactura> items;
@@ -30,6 +33,7 @@ public class Factura implements Serializable {
         items = new ArrayList<>();
     }
 
+    @JsonIgnoreProperties({"facturas", "hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY) // EAGER = Va a cargar t0do de forma automatica // Lazy = carga peresosa
     private Cliente cliente;
 

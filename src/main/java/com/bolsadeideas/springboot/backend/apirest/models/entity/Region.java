@@ -29,5 +29,5 @@ public class Region implements Serializable {
         this.nombre = nombre;
     }
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2189314171408493743L;
 }

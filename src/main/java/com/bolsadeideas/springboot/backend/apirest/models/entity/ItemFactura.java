@@ -1,5 +1,7 @@
 package com.bolsadeideas.springboot.backend.apirest.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -13,6 +15,7 @@ public class ItemFactura implements Serializable {
 
     private Integer cantidad;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     private Producto producto;
 
@@ -44,5 +47,5 @@ public class ItemFactura implements Serializable {
         return cantidad.doubleValue() * producto.getPrecio();
     }
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2189314171408493743L;
 }

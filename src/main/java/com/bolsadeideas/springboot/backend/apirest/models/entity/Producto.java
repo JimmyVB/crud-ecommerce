@@ -55,6 +55,6 @@ public class Producto implements Serializable {
         this.createAt = createAt;
     }
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2189314171408493743L;
 
 }
