@@ -50,7 +50,7 @@ public class ClienteRestController {
         return clienteService.findAll(PageRequest.of(page, 5));
     }
 
-    //@Secured({"ROLE_ADMIN", "ROLE_USER"})//Si colocar el prefijo
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})//Si colocar el prefijo
     @GetMapping("/clientes/{id}")
     public ResponseEntity<?> show(@PathVariable Long id){
 
