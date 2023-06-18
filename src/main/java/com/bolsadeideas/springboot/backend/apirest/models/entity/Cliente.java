@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.backend.apirest.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -40,15 +41,15 @@ public class Cliente implements Serializable {
 
     private String foto;
 
-    @NotNull(message = "La region no puede ser vacia")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="region_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Region region;
+    @NotNull
+    @Size(min=11, max=11)
+    private String ruc;
 
-    @JsonIgnoreProperties({"cliente", "hibernateLazyInitializer", "handler"})
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)// cascade = si elimina un cliente, elimina tod0 los hijos
+    @JsonIgnoreProperties(value={"cliente", "hibernateLazyInitializer", "handler"}, allowSetters = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Factura> facturas;
+
+    private Long usuarioId;
 
     public Cliente() {
         this.facturas = new ArrayList<>();
@@ -102,20 +103,28 @@ public class Cliente implements Serializable {
         this.foto = foto;
     }
 
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
     public List<Factura> getFacturas() {
         return facturas;
     }
 
     public void setFacturas(List<Factura> facturas) {
         this.facturas = facturas;
+    }
+
+    public String getRuc() {
+        return ruc;
+    }
+
+    public void setRuc(String ruc) {
+        this.ruc = ruc;
+    }
+
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     private static final long serialVersionUID = 2189314171408493743L;

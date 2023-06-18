@@ -33,9 +33,11 @@ public class Factura implements Serializable {
         items = new ArrayList<>();
     }
 
-    @JsonIgnoreProperties({"facturas", "hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties(value= {"facturas", "hibernateLazyInitializer", "handler"}, allowSetters = true)
     @ManyToOne(fetch = FetchType.LAZY) // EAGER = Va a cargar t0do de forma automatica // Lazy = carga peresosa
     private Cliente cliente;
+
+    private Long usuarioId;
 
     @PrePersist
     public void prePersist(){
@@ -84,6 +86,14 @@ public class Factura implements Serializable {
 
     public List<ItemFactura> getItems() {
         return items;
+    }
+
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public void setItems(List<ItemFactura> items) {

@@ -9,17 +9,12 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface IClienteService {
+public interface IProductoService {
 
-    public List<Cliente> findAll();
-    public Page<Cliente> findAll(Pageable pageable);
-    public Cliente findById(Long id);
-    public Cliente save(Cliente cliente);
+    public List<Producto> findAll();
+    public Page<Producto> findAll(Pageable pageable);
+    public Producto findById(Long id);
+    public Producto save(Producto producto);
     public void delete(Long id);
-    public List<Region> findAllRegiones();
-    public Factura findFacturaById(Long id);
-    public Factura saveFactura(Factura factura);
-    public void deleteFacturaById(Long id);
-    public List<Producto> findProductoByNombre(String term);
-
 }
+

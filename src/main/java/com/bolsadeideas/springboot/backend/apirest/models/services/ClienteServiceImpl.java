@@ -3,10 +3,8 @@ package com.bolsadeideas.springboot.backend.apirest.models.services;
 import com.bolsadeideas.springboot.backend.apirest.models.dao.IClienteDao;
 import com.bolsadeideas.springboot.backend.apirest.models.dao.IFacturaDao;
 import com.bolsadeideas.springboot.backend.apirest.models.dao.IProductoDao;
-import com.bolsadeideas.springboot.backend.apirest.models.entity.Cliente;
-import com.bolsadeideas.springboot.backend.apirest.models.entity.Factura;
-import com.bolsadeideas.springboot.backend.apirest.models.entity.Producto;
-import com.bolsadeideas.springboot.backend.apirest.models.entity.Region;
+import com.bolsadeideas.springboot.backend.apirest.models.dao.IUsuarioDao;
+import com.bolsadeideas.springboot.backend.apirest.models.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +24,9 @@ public class ClienteServiceImpl implements IClienteService{
 
     @Autowired
     private IProductoDao productoDao;
+
+    @Autowired
+    private IUsuarioDao usuarioDao;
 
     @Override
     @Transactional(readOnly = true)
